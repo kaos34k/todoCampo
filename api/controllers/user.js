@@ -5,18 +5,18 @@ var mongoosePagination = require('mongoose-pagination');
 var fs = require('fs'); 
 
 
-var User = require('../models/user');
 var Follow = require('../models/follow');
+var User = require('../models/user');
 
 
 function home(req, res) {
-	res.status(200).send({
-		message : 'Accion de pruebas del home'
-	});
+	/*return res.status(200).send({
+		message : 'Accion de pruebas del home',
+	});*/
 }
 
 function pruebas(req, res) {
-	res.status(200).send({
+	return res.status(200).send({
 		message : 'Accion de pruebas de pruebas'
 	});
 }

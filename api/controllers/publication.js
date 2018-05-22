@@ -52,7 +52,7 @@ function loadPublications(req, res) {
  			return res.status(200)
  						.send({
  							total: total,
- 							pages: Math.ceil(total/itemPerPage); 	,
+ 							pages: Math.ceil(total/itemPerPage),
  							page: page,
  							publicatios
  						});

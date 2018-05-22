@@ -1,5 +1,14 @@
 <div class="col-lg-6">
 	<h1 class="h1-strong">{{title}}</h1>
+	
+	<div class="alert alert-success" *ngIf="status=='success'">
+		Registro completado correctamente, <a [routerLink]="['/login']">Ingresa aquí.</a>
+	</div>
+	
+	<div class="alert alert-danger" *ngIf="status=='error'">
+		No se realizo el registro, puede qque el nick o email se encuentren en uso, intenta de nuevo
+	</div>
+
 	<form #registerForm="ngForm" (ngSubmit)="ngOnSubmit()" class="col-lg-10">
 		<p>
 			<label>Nombre</label>

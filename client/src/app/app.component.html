@@ -4,7 +4,7 @@
          <div class="navbar-header">
             <a href="#" class="navbar-brand">Mi logo</a>
          </div>
-         <ul class="nav navbar-nav">
+         <ul class="nav navbar-nav" *ngIf="identity">
             <li>
                <a href="#">
                   <span class="glyphicon glyphicon-home"></span>
@@ -21,6 +21,21 @@
                <a href="#">
                   <span class="glyphicon glyphicon-user"></span>
                   Gente 
+               </a>
+            </li>
+         </ul>
+
+         <ul class="nav navbar-nav navbar-right" *ngIf="!identity">
+            <li>
+               <a [routerLink]="['/login']" [routerLinkActive]="['activate']">
+                  <span class="glyphicon glyphicon-log-in"></span>
+                  Login
+               </a>
+            </li>
+            <li>
+               <a [routerLink]="['/register']" [routerLinkActive]="['activate']">
+                  <span class="glyphicon glyphicon-user"></span>
+                  Registrate
                </a>
             </li>
          </ul>

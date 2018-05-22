@@ -28,7 +28,7 @@ function deleteFollow(res, req) {
 	Follow.find({'user':userId, 'follow':followId}).remove(err=>{
 		if(err) return res.status(500).send({message:'No se removio el registro'});
 		
-		return res.status(200).send(message: 'se elimino el registro corectamente');
+		return res.status(200).send({message: 'se elimino el registro corectamente'});
 	}); 
 }
 

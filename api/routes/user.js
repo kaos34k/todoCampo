@@ -9,7 +9,7 @@ var md_auth = require('../middlewares/authenticated');
 var multipart = require('connect-multiparty');
 var md_upload = multipart({uploadDir:'./uploads/user'});
 
-api.post('/guardar-usuario', md_auth.ensureAuth, UserController.saveUser);
+api.post('/guardar-usuario', UserController.saveUser);
 api.post('/login-usuario', UserController.login);
 api.post('/upload-imagen', [md_auth.ensureAuth,md_upload], UserController.uploadImege);
 
