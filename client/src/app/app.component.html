@@ -6,7 +6,7 @@
          </div>
          <ul class="nav navbar-nav" *ngIf="identity">
             <li>
-               <a href="#">
+               <a [routerLink]="['/home']" [routerLinkActive]="['activate']">
                   <span class="glyphicon glyphicon-home"></span>
                   Inicio
                </a>
@@ -39,6 +39,43 @@
                </a>
             </li>
          </ul>
+
+         <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+            <li>
+               <a href="">Admin</a>
+            </li>
+            <li class="dropdown">
+              
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="caret"></span>
+                  {{identity.nombre}}
+               </a>
+            
+               <ul class="dropdown-menu">
+                  <li>
+                     <a href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Mi perfil
+                     </a>
+                  </li>
+
+                  <li>
+                     <a href="#">
+                        <span class="glyphicon glyphicon-cog"></span> 
+                        Mis datos
+                     </a>
+                  </li>
+
+                  <li>
+                     <a class="" (click)="logout()">
+                        <span class="glyphicon glyphicon-log-out"></span> 
+                        Cerrar sesión
+                     </a>
+                  </li>
+               </ul>
+            </li>
+         </ul>
+
       </div>
    </nav>
 </div>

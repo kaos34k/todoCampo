@@ -22,4 +22,9 @@ export class AppComponent implements OnInit, DoCheck{
   ngDoCheck(){
   	this.identity = this._userService.getIdentity(); 	
   }
+
+  //cerrar sesión del usaurio
+  logout(){
+    localStorage.clear();
+  }
 }
