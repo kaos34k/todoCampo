@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit{
 						this.getToken();
 						localStorage.setItem("identity", JSON.stringify(this.identity));
 						this.status= "success";
+						this._router.navigate(['/']);
 					}
 				} else {
 					this.status= "error";	

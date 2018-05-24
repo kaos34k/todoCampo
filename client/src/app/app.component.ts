@@ -1,4 +1,5 @@
 import { Component, OnInit, DoCheck} from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 import { UserService } from './services/user.service';
 
 import * as $ from 'jquery';
@@ -13,7 +14,11 @@ export class AppComponent implements OnInit, DoCheck{
   private title = 'app';
   private identity;
 
-  constructor(private _userService:UserService){ }
+  constructor(
+    private _userService:UserService,
+    private _route:ActivatedRoute,
+    private _router:Router,
+  ){}
 
   ngOnInit() {
 	this.identity = this._userService.getIdentity(); 
@@ -26,5 +31,7 @@ export class AppComponent implements OnInit, DoCheck{
   //cerrar sesión del usaurio
   logout(){
     localStorage.clear();
+    this.identity = null;
+    this._router.navigate(['/']);
   }
 }
