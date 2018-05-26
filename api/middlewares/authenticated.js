@@ -12,14 +12,16 @@ exports.ensureAuth = function(req, res, next) {
 	}
 
 	var token = req.headers.authorization.replace(/['"]+/g, '');
+	console.info(token);
 	try {
 		var pyload = jwt.decode(token, secret);
-		if (pyload.exp<=moment().inix()) {
+		if (pyload.exp<=moment().unix()) {
 			return res.status(401).send({
 				message:"El token ha expirado."
 			});
 		}	
 	} catch(e){
+		console.error("Errores", e);
 		return res.status(404).send({
 			message:"El token no es válido."
 		});

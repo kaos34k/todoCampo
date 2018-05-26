@@ -39,8 +39,6 @@ export class LoginComponent implements OnInit{
 					} else {
 						this.getToken();
 						localStorage.setItem("identity", JSON.stringify(this.identity));
-						this.status= "success";
-						this._router.navigate(['/']);
 					}
 				} else {
 					this.status= "error";	
@@ -60,11 +58,24 @@ export class LoginComponent implements OnInit{
 					this.status= "error";
 				} else {
 					localStorage.setItem("token", this.token);
+					this.getCounters();
 					this.status= "success";
 				}
 			}, err =>{
 				console.error("No se puede cargar el token");
 			}
 		);
+	}
+
+	getCounters(){
+		this._userServices.getCounters().subscribe(
+			response=>{
+				localStorage.setItem('stats', JSON.stringify(response));
+				this._router.navigate(['/']);
+			},
+			error=>{
+				console.info("Error", "No se puede cargar información");
+			}
+		)
 	}
 }
