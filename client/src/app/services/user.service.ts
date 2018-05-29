@@ -12,15 +12,18 @@ export class UserService{
 	private token;
 	private stats;
 
+	//inicializo  la url de mi api
 	constructor(public _http:HttpClient) {
 		this.url = GLOBAL.url;
 	}
 
+	//registro de usaurios
 	register(user:User) : Observable<any> {
 		let json =JSON.stringify(user);
 		return this._http.post(this.url+'guardar-usuario', json, {headers: this.headers});
 	}
 
+	//iniciar sesion en mi aplicación
 	login(user:User, gettoken=null ) : Observable<any> {
 		if (gettoken) {
 			user.gettoken = gettoken;
@@ -56,6 +59,7 @@ export class UserService{
 		return this.token;	
 	}
 
+	//manejo de stats del usaurio
 	getStats(){
 		let stats = JSON.parse(localStorage.getItem('stats'));
 		if (stats!= undefined) {
@@ -80,5 +84,14 @@ export class UserService{
 			return this._http.get(this.url+'counters', {headers: head});
 		}
 
+	}
+
+	//actualizar informacion del usuario
+	updateUser(user:User): Observable<any>{ 
+		let params =JSON.stringify(user);
+		let token =this.getToken();
+		let head = this.headers.set('Authorization', token);
+		
+		return this._http.post(this.url+'update-user/'+user._id, params, {headers: head});
 	}
 }

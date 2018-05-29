@@ -76,12 +76,11 @@ function saveUser(req, res) {
 }
 
 function updateUser(req, res) {
-	var userId = re.params.id;
+	var userId = req.params.id;
 	var update = req.body;
-
 	//borrar password
 	delete update.password;
-	if(useId!= req.user.sub){
+	if(userId != req.user.sub){
 		return res.status(500).send({message:"No tiene permisos para editar al usuario."});
 	}
 
@@ -95,7 +94,7 @@ function updateUser(req, res) {
 }
 
 function uploadImege(req, res) {
-	var userId = re.params.id;
+	var userId = re.params._id;
 
 
 	if(req.files){
@@ -106,7 +105,7 @@ function uploadImege(req, res) {
 		var split_ext = file_name.split('\.')
 		var file_ext = split_ext[1];
 
-		if(useId!= req.user.sub) {
+		if(userId!= req.user.sub) {
 			return removeUploads(res, file_path, "No tiene permisos para editar al usuario.");
 		}
 

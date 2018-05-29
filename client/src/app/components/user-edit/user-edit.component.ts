@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 
 @Component({
 	selector: 'user-edit',
-	templateUrl: './user-edit.component',
+	templateUrl: './user-edit.component.html',
 	providers: [UserService]
 })
 
@@ -30,6 +30,26 @@ export class UserEditComponent {
 	}
 
 	ngOnInit(){
+		
+	}
 
+	onSubmit(){
+		this._userService.updateUser(this.user).subscribe(
+			response=>{
+				if(!response.user){
+					this.status = "error";
+				} else { 
+					this.status = "success";
+					localStorage.setItem("identity", JSON.stringify(response.user));
+					this.identity = this.user;
+
+					//subir archivos
+				}
+			},
+			error=>{
+				var errorMessage = <any> error;
+				console.error(errorMessage);
+			}
+		);
 	}
 }

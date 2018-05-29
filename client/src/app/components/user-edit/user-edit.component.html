@@ -1,0 +1,35 @@
+<div class="col-lg-5">
+	<h1 class="h1-strong">{{title}}</h1>
+	<div class="alert alert-success" *ngIf="status=='success'">
+		Registro completado correctamente, <a [routerLink]="['/login']">Ingresa aquí.</a>
+	</div>
+	
+	<div class="alert alert-danger" *ngIf="status=='error'">
+		No se realizo el registro, puede qque el nick o email se encuentren en uso, intenta de nuevo
+	</div>
+	<form #userEditForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+		<p>
+			<label>Nombre</label>
+			<input type="text" name="name" #name="ngModel" ngControl="name" [(ngModel)]="user.name" class="form-control" required>
+			<span  *ngIf="!name.valid && name.touched">EL campo es obligatorio</span>
+		</p>
+
+		<p>
+			<label>Apellido</label>
+			<input type="text" name="surname" #surname="ngModel" ngControl="surname" [(ngModel)]="user.surname"  class="form-control">
+		</p>
+		
+		<p>
+			<label>nick</label>
+			<input type="text" name="nick" #nick="ngModel" ngControl="nick" [(ngModel)]="user.nick"  class="form-control">
+		</p>
+		
+		<p>
+			<label>email</label>
+			<input type="email" name="email" #email="ngModel" ngControl="email" [(ngModel)]="user.email"  class="form-control" required  pattern="[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*">
+			<span  *ngIf="!email.valid && email.touched">EL campo es obligatorio</span>
+		</p>
+		<input type="submit" value="{{title}}" class="btn btn-success" [disabled]="!userEditForm.form.valid">
+	</form>
+
+</div>

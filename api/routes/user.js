@@ -20,6 +20,6 @@ api.get('/get-usuarios/:page?',md_auth.ensureAuth, UserController.getUsers);
 api.get('/get-imagen-user/:imagenFile', UserController.getImageUser);
 api.get('/counters', md_auth.ensureAuth, UserController.getCounters);
 
-api.put('/actualizar-usuario', md_auth.ensureAuth, UserController.updateUser);
+api.post('/update-user/:id', md_auth.ensureAuth, UserController.updateUser);
 
 module.exports = api;
