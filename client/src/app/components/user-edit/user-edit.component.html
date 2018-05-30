@@ -29,6 +29,15 @@
 			<input type="email" name="email" #email="ngModel" ngControl="email" [(ngModel)]="user.email"  class="form-control" required  pattern="[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*">
 			<span  *ngIf="!email.valid && email.touched">EL campo es obligatorio</span>
 		</p>
+		
+		<div *ngIf="user.image">
+			<img src="{{url + 'get-imagen-user/'+ user.image}}" alt="Mi avatar">
+		</div>
+
+		<p>
+			<label>Sube tu avatar</label>
+			<input type="file" placeholder="Subir archivo" (change)="fileChangeEvent($event)"/>
+		</p>
 		<input type="submit" value="{{title}}" class="btn btn-success" [disabled]="!userEditForm.form.valid">
 	</form>
 

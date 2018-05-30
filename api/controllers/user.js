@@ -3,7 +3,7 @@ var jwt = require('../services/jwt');
 var bcrypt = require('bcrypt-nodejs');
 var mongoosePagination = require('mongoose-pagination');
 var fs = require('fs'); 
-
+var path = require('path');
 
 var Follow = require('../models/follow');
 var User = require('../models/user');
@@ -94,7 +94,7 @@ function updateUser(req, res) {
 }
 
 function uploadImege(req, res) {
-	var userId = re.params._id;
+	var userId = req.params.id;
 
 
 	if(req.files){
@@ -111,7 +111,7 @@ function uploadImege(req, res) {
 
 
 		if(file_ext==='png' || file_ext==='jpg' || file_ext==='jpeg' || file_ext==='gif'){
-			User.findByIdAndUpdate(useId, {image: file_name}, {new:true}, (err, userUpdate)=>{
+			User.findByIdAndUpdate(userId, {image: file_name}, {new:true}, (err, userUpdate)=>{
 				if(err) return res.status(404).send({message:"Hay errores en la petición"});
 
 				if(!userUpdate) return  res.status(500).send({message:"El registro no puede ser procesado."});
@@ -127,9 +127,10 @@ function uploadImege(req, res) {
 }
 
 function getImageUser(req, res) {
-	var image_file = req.params.imageFile;
-	var path_file = './upload/user/'+image_file;
-	fs.exist(path_file, (exist)=>{
+	var image_file = req.params.imagenFile;
+	var path_file = './uploads/user/'+image_file;
+	console.info(path_file);
+	fs.exists(path_file, (exist)=>{
 		if(exist){
 			return res.sendFile(path.resolve(path_file));
 		} else {

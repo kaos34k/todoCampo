@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import { User } from '../../models/user'
+import { GLOBAL } from '../../services/global.service';
 import { UserService } from '../../services/user.service';
+import { UploadService } from '../../services/upload.service';
 
 @Component({
 	selector: 'user-edit',
 	templateUrl: './user-edit.component.html',
-	providers: [UserService]
+	providers: [UserService, UploadService]
 })
 
 export class UserEditComponent {
 	
+	private url:string;
 	private title:string;
 	private user: User;
 	private identity;
@@ -20,9 +23,11 @@ export class UserEditComponent {
 	constructor(
 			private _route: ActivatedRoute,
 			private _router: Router,
-			private _userService: UserService
+			private _userService: UserService,
+			private _uploadService: UploadService
 		) {
 		
+		this.url = GLOBAL.url;
 		this.title = "Actualizar datos";
 		this.user = this._userService.getIdentity();
 		this.identity = this.user;
@@ -44,6 +49,11 @@ export class UserEditComponent {
 					this.identity = this.user;
 
 					//subir archivos
+					this._uploadService.makeFileRequest(this.url+'upload-imagen/'+this.user._id, [], this.filesToUpload, this.token, 'image')
+										.then( ( result:any )=>{
+											this.user.image = result.user.image;
+											localStorage.setItem('identity', JSON.stringify(this.user)) 
+										});
 				}
 			},
 			error=>{
@@ -51,5 +61,11 @@ export class UserEditComponent {
 				console.error(errorMessage);
 			}
 		);
+	}
+
+	//este metodo es para cargar la foto de mi usuario en sesión
+	public filesToUpload: Array<File>;
+	fileChangeEvent(file) {
+		this.filesToUpload=<Array<File>>file.target.files;
 	}
 }
