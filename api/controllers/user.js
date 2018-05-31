@@ -10,9 +10,6 @@ var User = require('../models/user');
 
 
 function home(req, res) {
-	/*return res.status(200).send({
-		message : 'Accion de pruebas del home',
-	});*/
 }
 
 function pruebas(req, res) {
@@ -42,6 +39,7 @@ function saveUser(req, res) {
 				{email: user.email.toLowerCase()},
 				{nick: user.nick.toLowerCase()},
 			]}).exec((err, users)=>{
+				console.error(err);
 				if(err) return res.status(500).send({message:"Error en la petición"});
 				
 				if( users && users.length>= 1) {

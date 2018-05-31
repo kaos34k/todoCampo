@@ -1,7 +1,7 @@
 <div class="col-lg-5">
 	<h1 class="h1-strong">{{title}}</h1>
 	<div class="alert alert-success" *ngIf="status=='success'">
-		Se realizo la actualización de la información correctamente.</a>
+		<a>Se realizo la actualización de la información correctamente.</a>
 	</div>
 	
 	<div class="alert alert-danger" *ngIf="status=='error'">
@@ -31,7 +31,7 @@
 		</p>
 		
 		<div *ngIf="user.image">
-			<img src="{{url + 'get-imagen-user/'+ user.image}}" alt="Mi avatar">
+			<img src="{{url + 'get-imagen-user/'+ user.image}}" alt="Mi avatar"/>
 		</div>
 
 		<p>
