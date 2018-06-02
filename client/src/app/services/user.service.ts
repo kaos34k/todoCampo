@@ -94,4 +94,20 @@ export class UserService{
 		
 		return this._http.post(this.url+'update-user/'+user._id, params, {headers: head});
 	}
+
+	//listar usuarios
+	getUsersList(page=null): Observable<any>{ 
+		let token =this.getToken();
+		let head = this.headers.set('Authorization', token);
+		
+		return this._http.get(this.url+'get-usuarios/'+page, {headers: head});
+	}	
+
+	//cargar un solo usuario
+	getUser(id): Observable<any>{ 
+		let token =this.getToken();
+		let head = this.headers.set('Authorization', token);
+		
+		return this._http.get(this.url+'get-usuario/'+id, {headers: head});
+	}
 }
