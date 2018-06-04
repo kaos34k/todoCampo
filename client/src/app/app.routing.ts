@@ -21,6 +21,7 @@ const appRoutes: Routes =[
 		{path:'login', component: LoginComponent},
 		{path:'register', component: RegisterComponent},
 		{path:'user-edit', component: UserEditComponent},
+		{path:'users/:page', component: UsersComponent},
 		{path:'users', component: UsersComponent}
 	];
 export const appRoutingProviders: any[] = [];

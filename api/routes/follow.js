@@ -11,6 +11,6 @@ api.get('/get-my-following/:id?/:page?', md_auth.ensureAuth, FollowController.ge
 api.get('/get-my-follows/:followed?', md_auth.ensureAuth, FollowController.getMyFollows );
 
 
-api.delete('/delete-follow', md_auth.ensureAuth, FollowController.deleteFollow );
+api.delete('/delete-follow/:id', md_auth.ensureAuth, FollowController.deleteFollow );
 
 module.exports = api;

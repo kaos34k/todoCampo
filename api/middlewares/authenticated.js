@@ -12,7 +12,6 @@ exports.ensureAuth = function(req, res, next) {
 	}
 
 	var token = req.headers.authorization.replace(/['"]+/g, '');
-	console.info(token);
 	try {
 		var pyload = jwt.decode(token, secret);
 		if (pyload.exp<=moment().unix()) {

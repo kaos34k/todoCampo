@@ -1,5 +1,8 @@
 'use strict'
 
+//https://stackoverflow.com/questions/50283081/mongodb-error-cannot-use-retryable-writes-with-limit-0
+//retryWrites=trues una buena cosa, una solución para esta incompatibilidad es usar en findOneAndRemovelugar de remove(parece que estás usando mangosta)
+
 var mongoose= require('mongoose');
 var app = require('./app.js');
 var port = 3899;

@@ -186,12 +186,6 @@ function getUser(req, res) {
 		if (err) return res.status(500).send({message:"Error en la petición."});
 
 		if (!user) return res.status(404).send({message:"El usuario no existe."}); 
-
-		/*Follow.findOne({'user': req.user.sub,'followed':useId}).exce((err, follow)=>{
-			if (err) return res.status(500).send({message:"Error en la petición."});
-
-			return res.status(200).send({user, follow});
-		});*/
  		
  		followThisUser(req.user.sub, useId).then((val)=>{
  			user.password = undefined;
@@ -205,7 +199,7 @@ function getUser(req, res) {
 }
 
 function getUsers(req, res) {
-	//var identity_user_id = req.user.sub;
+	var identity_user_id = req.user.sub;
 	
 	var page = 1;
 	if(req.params.page ){
@@ -219,11 +213,14 @@ function getUsers(req, res) {
 		if (!users) return res.status(404).send({message:"Ho hay usuarios disponibles."}); 
 		
 
-		followUserId().then((val)=>{
-			return res.status(404).send({
+		var result = followUserId(identity_user_id);
+
+			result.then((val)=>{
+
+			return res.status(200).send({
 				users,
-				users_following: val.following,
-				users_followed: val.followed,
+				users_following: val.following,//usuarios que estoy siguiendo
+				users_followed: val.followed,//usuarios queme siguen
 				total,
 				pages: Math.ceil(total/pageSize)
 			}); 
@@ -248,45 +245,64 @@ function getCounters(req, res) {
 
 //metodos privados
 async function followUserId(user_id){
-	var following = await Follow.find({"user": user_id}).select({'_id':0, '__v':0,'user':0}).exec((err, follow)=>{
-		return follow;
-	});
+	try {
+		//usuarios que estoy siguiendo
+		var following = await Follow.find({"user": user_id}).select({'_id':0, '__v':0,'user':0}).exec()
+				.then((following) => {
+					var following_clean = [];
 
-	var followed = await Follow.find({"followed": user_id}).select({'_id':0, '__v':0,'followed':0}).exec((err, follow)=>{
-		return follow;
-	});
-
-
-	var followed_clean = [];
-	followed.forEach((follow)=>{
-		followed_clean.push(follow.user);
-	});
-
-
-	var following_clean = [];
-	following.forEach((follow)=>{
-		follows_clean.push(follow.followed);
-	});
-
-
-	return {
-		following: following_clean, 
-		followed: followed_clean
+					following.forEach((follo)=>{
+						following_clean.push(follo.follow);
+					});
+	                return following_clean;
+	            })
+	            .catch((err)=>{
+	            	console.info(err);
+	                return err;
+	            });
+        //usuarios queme siguen
+		var followed = await Follow.find({"follow": user_id}).select({'_id':0, '__v':0,'follow':0}).exec()            
+				.then((followed) => {
+					var followed_clean = [];
+					followed.forEach((follo)=>{
+						followed_clean.push(follo.user);
+					});
+		            return followed_clean;
+	            })
+	            .catch((err)=>{
+	            	console.info(err);
+	                return err;
+	            });
+		return {
+			following: following, 
+			followed: followed
+		}
+	} catch(err) {
+		console.error("ERROR", err);
+		return err;
 	}
 }
 
 async function followThisUser(identity_user_id, user_id){
-	var following = await Follow.findOne({"user": identity_user_id, "followed": user_id}).exec((err, follow)=>{
-		if(err) return handleError(err);
+	var following = await Follow.findOne({"user": identity_user_id, "followed": user_id}).exec()
+		.then((following) => {
+			console.info("following", following);
+            return following;
+        })
+        .catch((err)=>{
+        	console.info(err);
+            return err;
+        });
 
-		return follow;
-	});
-
-	var followed = await Follow.findOne({"user":user_id, "followed":identity_user_id }).exec((err, followed)=>{
-		if(err) return handleError(err);
-
-		return followed;
-	});
+	var followed = await Follow.findOne({"user":user_id, "followed":identity_user_id }).exec()
+		.then((followed) => {
+			console.info("following", followed);
+            return followed;
+        })
+        .catch((err)=>{
+        	console.info(err);
+            return err;
+        });
 
 	return {
 		following: following,

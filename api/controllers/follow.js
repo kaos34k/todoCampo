@@ -9,8 +9,8 @@ var Follow = require('../models/follow');
 function saveFollow(req, res) {
 	var params = req.body;
 	var follow = new Follow();
-	follow.user = req.user.sub;
-	follow.followed  = req.followed; 
+	follow.user = params.user;
+	follow.follow  = params.follow; 
 
 	follow.save((err, followStored)=>{
 		if(err) return res.status(500).send({message: "No se guarado el registro"});
@@ -21,11 +21,18 @@ function saveFollow(req, res) {
 	});
 }
 
-function deleteFollow(res, req) {
+function deleteFollow(req, res) {
 	var userId = req.user.sub;
 	var followId= req.params.id;
 
-	Follow.find({'user':userId, 'follow':followId}).remove(err=>{
+
+	//la antigua forma de elimiar registros requeria de hacer un acambio en la variable
+	//retryWrites=true a false para poder usar de manera correta el metodo remove que es sustituido por
+	//findOneAndRemove que resibe como paametros el filtro por el que 
+	//va a eliminar el regstro y la respuesta o callback 
+	//var follow= Follow.find({'user':userId, 'follow':followId});
+	
+	Follow.findOneAndRemove({'user':userId, 'follow':followId},  err=>{
 		if(err) return res.status(500).send({message:'No se removio el registro'});
 		
 		return res.status(200).send({message: 'se elimino el registro corectamente'});
