@@ -62,7 +62,7 @@ export class SidebarComponent {
 					let url = this.url+'upload-foto/'+this.publication._id;
 					this._uploadService.makeFileRequest(url, [], this.filesToUpload, this.token,"image")
 									.then( ( result:any ) => {
-										//this.publication.file = result.publication.file;
+										
 									});
 					form.reset();
 				}	
