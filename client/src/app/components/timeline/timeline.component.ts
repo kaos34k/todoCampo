@@ -9,6 +9,8 @@ import { UserService } from '../../services/user.service';
 import { UploadService } from '../../services/upload.service';
 import { PublicationService } from '../../services/publication.service';
 
+import * as $ from 'jquery';
+
 @Component({
 	selector: 'timeline',
 	templateUrl:'./timeline.component.html',
@@ -29,7 +31,7 @@ export class TimelineComponent {
 
 	//controles de paginación
 	private total;
-	private page;
+	private page = 1;
 	private pages;
 	private itemPerPage;
 
@@ -67,6 +69,7 @@ export class TimelineComponent {
 						var arrayA = this.publications;
 						var arrayB = response.publications;
 						this.publications = arrayA.concat(arrayB);
+						$("html, body").animate({scrollTop:$("body").prop("scrollHeight")}, 100);
 					}
 
 					if(page > this.pages){
@@ -101,6 +104,7 @@ export class TimelineComponent {
 		this.filesToUpload=<Array<File>>file.target.files;
 	}
 
+	//control de view mas
 	public noMore = false;
  	viewMore(){
 		this.page += 1;
@@ -109,6 +113,4 @@ export class TimelineComponent {
 		}
 		this.loadPublications(this.page, true);
  	}
-
-
 }

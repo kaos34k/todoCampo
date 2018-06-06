@@ -12,21 +12,16 @@
 						</a>
 					</div>
 
-					<div class="publication-name pull-left">
-						<p class="publication-surname">
-							<a href="#">
-								{{publication.text}}	
-							</a>
-						</p>
-						<p class="nickname">{{publication.nick}}</p>
-					</div>
+					<p class="user-surname">
+						<a href="#">
+							{{publication.user.name +' '+publication.user.surname}}	
+						</a>
+					</p>
+					
+					<h4>
+						{{publication.text}}
+					</h4>
 
-					<!--<div class="pull-right" *ngIf="publication._id != identity._id">	
-						<button class="btn btn-success" *ngIf="follows.indexOf(publication._id) < 0" (click)="saveFollow(publication._id)"> 
-								<span class="glyphicon glyphicon-plus-sign"></span> 
-								Seguir
-						</button>
-					</div>-->
 				</div>
 			</div>
 		</div>

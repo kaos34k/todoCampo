@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+textarea {
+  resize: none;
+}
+
 .h1-strong{
 	font-size: 35px;
 	font-weight: bold;
@@ -115,4 +119,15 @@
 /*Publicaciones*/
 .publications {
 	min-height: 500px;
+}
+
+.item-publication .image-publication {
+	width: 150px;
+	border-radius:0px;
+	overflow: hidden;
+	margin-right: 10px;
+}
+
+.item-publication .image-publication img{
+	width: 137px;
 }

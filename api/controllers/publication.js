@@ -42,10 +42,11 @@ function loadPublications(req, res) {
 						follow_clean.push(follow.follow._id);
 					});
                 	
+                	follow_clean.push(req.user.sub);
                 	//ver solo las publicaciones de mis seguidores
 				 	//Publication.find({user: {"$in":follow_clean}})
 					//ver todas las publicaciones
-					Publication.find()
+					Publication.find({user: {"$in":follow_clean}})
 					 	.sort('create_at')
 					 	.populate('user')
 					 	.paginate(page, itemPerPage, (err, publications, total)=>{
