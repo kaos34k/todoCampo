@@ -41,7 +41,7 @@ export class UploadService{
 				 			}
 			 			}	
 				 	}
-
+				 	
 				 	xhr.open("POST", url, true);
 			 		xhr.setRequestHeader('Authorization', token);
 			 		xhr.send(formData);

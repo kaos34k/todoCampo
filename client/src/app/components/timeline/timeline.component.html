@@ -1,0 +1,47 @@
+
+<div class="col-lg-8">
+	<h1 class="h1-strong">{{title}}</h1>
+	<div class="publications">
+		<div *ngFor="let publication of publications" class="item-publication">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="image-publication pull-left">
+						<a href="#">
+							<img src="{{url + 'get-imagen-publication/'+ publication.file}}" *ngIf="publication.file">
+							<!--<img src="/assets/user.png" class="avatar-default" *ngIf="!publication.image">-->
+						</a>
+					</div>
+
+					<div class="publication-name pull-left">
+						<p class="publication-surname">
+							<a href="#">
+								{{publication.text}}	
+							</a>
+						</p>
+						<p class="nickname">{{publication.nick}}</p>
+					</div>
+
+					<!--<div class="pull-right" *ngIf="publication._id != identity._id">	
+						<button class="btn btn-success" *ngIf="follows.indexOf(publication._id) < 0" (click)="saveFollow(publication._id)"> 
+								<span class="glyphicon glyphicon-plus-sign"></span> 
+								Seguir
+						</button>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--paginacion-->
+	<div class="col-lg-12 text-center">
+		<p>
+			<button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore">
+				Ver más publicaciones
+			</button>
+		</p>
+	</div>
+</div>
+
+
+<sidebar></sidebar>
+<div class="clearfix"></div>

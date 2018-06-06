@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersComponent} from './components/users/users.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 //este es el arreglo encargado de definir las rutas para cada vista
 const appRoutes: Routes =[
@@ -22,7 +23,9 @@ const appRoutes: Routes =[
 		{path:'register', component: RegisterComponent},
 		{path:'user-edit', component: UserEditComponent},
 		{path:'users/:page', component: UsersComponent},
-		{path:'users', component: UsersComponent}
+		{path:'users', component: UsersComponent},
+		{path:'timeline', component: TimelineComponent},
+		{path:'**', component: HomeComponent},
 	];
 export const appRoutingProviders: any[] = [];
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

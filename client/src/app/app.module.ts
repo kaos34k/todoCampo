@@ -17,6 +17,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { UsersComponent} from './components/users/users.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 //cofiguracion de mi app
 @NgModule({
@@ -27,7 +29,9 @@ import { UsersComponent} from './components/users/users.component';
     RegisterComponent,
     HomeComponent,
     UserEditComponent,
-    UsersComponent
+    UsersComponent,
+    SidebarComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

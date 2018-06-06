@@ -47,6 +47,7 @@ export class UsersComponent {
 	ngOnInit(){
 		this.actualPage();	
 	}
+
 	//paginador
 	actualPage(){
 		this._route.params.subscribe(params=>{
@@ -79,9 +80,6 @@ export class UsersComponent {
 					if(!response.users) {
 						this.status='error';
 					} else {
-
-						console.info(response);
-						
 						this.status='success';
 						this.total = response.total;
 						this.users = response.users;

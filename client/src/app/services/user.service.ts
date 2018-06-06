@@ -72,12 +72,12 @@ export class UserService{
 
 	//cotadores de mis seguidos y segidores
 	getCounters(userId= null): Observable<any>{
-		let token =this.getToken();
+		let token = this.getToken();
+
 		let head = new HttpHeaders()
 							.set('Content-Type', 'application/json')
 							.set('Authorization', token);
-		
-		console.info(head);
+	
 		if (userId != null) {
 			return this._http.get(this.url+'counters/'+ userId , {headers: head});
 		} else {

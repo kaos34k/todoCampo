@@ -1,1 +1,1 @@
-# redSocial
+# Manual del cliente

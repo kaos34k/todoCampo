@@ -13,7 +13,7 @@ api.post("/upload-foto/:id", [md_auth.ensureAuth,md_upload], publicationControll
 
 api.get("/load-publication/:page?", md_auth.ensureAuth, publicationController.loadPublications);
 api.get("/publication/:id", md_auth.ensureAuth, publicationController.getPublication);
-api.get("/get-imagen-publication/:imagen", md_auth.ensureAuth, publicationController.getImagePublication);
+api.get("/get-imagen-publication/:imageFile", publicationController.getImagePublication);
 
 api.delete("/delete-publication/:id", md_auth.ensureAuth, publicationController.deletePublication);
 

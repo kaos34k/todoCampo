@@ -24,6 +24,7 @@
 	background: #9c1111;
 }
 
+/* USERS */
 .item-user .image-user{
 	width: 75px;
 	height: 75px;
@@ -51,4 +52,67 @@
 
 .item-user .avatar-default img{
 	width: 100%;
+}
+
+/* SIDE BAR*/
+.sidebar-32{
+	width: 32px;
+}
+
+#user-card, #new-publication{
+	padding: 25px;
+	width: 32%;
+}
+
+#user-card .avatar{
+	width: 75px;
+	height: 75px;
+	border-radius: 100%;
+	overflow: hidden;
+	margin-right: 15px;
+}
+
+#user-card .avatar img{
+	width: 137px;
+}
+
+#user-card .name-surname a{
+	color: #555;
+}
+
+#user-card .name-surname .nickname{
+	color: #969393;
+}
+
+#user-card .label-stats, 
+#user-card .number-stats {
+	display: block;
+}
+
+#user-card .label-stats{
+	font-weight: bold;
+	color: #555;
+}
+
+#user-card .number-stats{
+	font-weight: bold;
+	color: green;
+}
+
+#user-card .following-data:first-child{
+	padding-left: 6px;
+}
+
+#user-card .following-data:last-child{
+	padding-left: none;
+}
+
+#new-publication{
+	padding: 25px;
+	padding-left: 10px;
+}
+
+/*Publicaciones*/
+.publications {
+	min-height: 500px;
 }

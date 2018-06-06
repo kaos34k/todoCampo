@@ -1,0 +1,85 @@
+<div id="user-card" class="col-lg-4 panel panel-default pull-left"> 
+	<div class="avatar pull-left">
+		<img src="{{url + 'get-imagen-user/'+ identity.image}}" alt="Mi avatar" *ngIf="identity.image">
+		<img src="assets/user.png" alt="Avatar default" *ngIf="!identity.image">
+	</div>
+
+	<div class="name-surname pull-left">
+		<a href="#">
+			{{identity.name +' '+ identity.surname}}
+		</a>
+		<p class="nick">{{identity.nick}}</p>
+	</div>
+	<div class="clearfix"></div>
+	
+	<!-- Mis seguidores-->
+	<div class="stats" *ngIf="stats">
+		<div class="following-data">
+			<a href="#">
+				<span class="label-stats">
+					Siguiendo
+				</span>
+				<span  class="numeber-stats">
+					{{stats.total_following}}
+				</span>
+			</a>
+		</div>
+	</div>
+	
+	<!-- Mis seguidos -->
+	<div class="stats" *ngIf="stats">
+		<div class="following-data">
+			<a href="#">
+				<span class="label-stats">
+					Siguiendo
+				</span>
+				<span  class="numeber-stats">
+					{{stats.total_followed}}
+				</span>
+			</a>
+		</div>
+	</div>
+	
+	<!-- Mis publicaciones-->
+	<div class="stats" *ngIf="stats">
+		<div class="following-data">
+			<a href="#">
+				<span class="label-stats">
+					Siguiendo
+				</span>
+				<span  class="numeber-stats">
+					{{stats.publications}}
+				</span>
+			</a>
+		</div>
+	</div>
+
+
+</div>
+
+<div id="new-publication" class="col-lg-4 panel panel-default pull-left">
+	<h3>Nueva publicación</h3>
+		
+	<div class="alert alert-success" *ngIf="status== 'success' ">
+		Se guardo el registro correctamente!
+	</div>
+
+	<div class="alert alert-danger" *ngIf="status== 'error' ">
+		Ups! problemas guardadno el registro!
+	</div>
+
+	<form #newPubFrom="ngForm" (ngSubmit)="onSubmit(newPubFrom)" class="col-lg-12">
+		<p>
+			<label>¿Y que has pensado hoy?</label>
+			<textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required></textarea>
+			<span *ngIf="!text.valid && text.touched">EL texto es obligatorio!</span>
+		</p>
+		
+		<p>
+			<label>Subir imagen</label>
+			<input type="file" placeholder="Subir archivo" (change)="fileChangeEvent($event)"/>
+		</p>
+
+		<input type="submit" value="Enviar" class="btn btn-success" [disabled]="!newPubFrom.form.valid">
+	</form>
+</div>

@@ -3,7 +3,8 @@ var jwt = require('../services/jwt');
 var bcrypt = require('bcrypt-nodejs');
 var mongoosePagination = require('mongoose-pagination');
 var fs = require('fs'); 
-
+var moment = require('moment');
+var path = require('path');
 
 var User = require('../models/user');
 var Follow = require('../models/follow');
@@ -27,37 +28,48 @@ function savePublication(req, res) {
 }
 
 function loadPublications(req, res) {
-	var page = 1;
-	if(req.params.page ){
-		page = req.params.page;
+	try{
+		var page = 1;
+		if(req.params.page ){
+			page = req.params.page;
+		}
+
+	 	var itemPerPage = 4;
+		Follow.find({user: req.user.sub}).populate('follow').exec()				
+				.then((follow) => {
+					var follow_clean = [];
+					follow.forEach((follow)=> {
+						follow_clean.push(follow.follow._id);
+					});
+                	
+                	//ver solo las publicaciones de mis seguidores
+				 	//Publication.find({user: {"$in":follow_clean}})
+					//ver todas las publicaciones
+					Publication.find()
+					 	.sort('create_at')
+					 	.populate('user')
+					 	.paginate(page, itemPerPage, (err, publications, total)=>{
+			 			if(err) return res.status(500).send({message:"Error en devolver publicaciones."});
+				 		
+				 		if(!publications) return res.status(404).send({message:"No hay publicaciones"});
+			 			
+			 			return res.status(200)
+			 						.send({
+			 							total: total,
+			 							pages: Math.ceil(total/itemPerPage),
+			 							page: page,
+			 							item_per_page: itemPerPage,
+			 							publications
+			 						});
+				 	});
+	            }).catch((err)=>{
+	            	console.info(err);
+	            	return res.status(500).send({message:"Error en devolver seguimiento."});
+	            });
+	} catch(error){
+		console.info("Error", error);
 	}
 
- 	var itemPerPage = 4;
-	Follow.find({user:req.user.sub}).populate('followed').exec((err, follows)=>{
-		if(err) return res.status(500).send({message:"Error en devolver seguimiento."});
-			
-		follow_clean = [];
-	 	follows.forEach((folow)=>{
-	 		follow_clean.push(folow.followed);
-	 	});
-
-	 	Publication.find({user: {"$in":follow_clean}})
-	 	.sort('-create_at')
-	 	.populate('user')
-	 	.paginate(page, itemPerPage, (err, publicatios, total)=>{
- 			if(err) return res.status(500).send({message:"Error en devolver publicaciones."});
-	 		
-	 		if(!publicatios) return res.status(404).send({message:"No hay publicaciones"});
- 			
- 			return res.status(200)
- 						.send({
- 							total: total,
- 							pages: Math.ceil(total/itemPerPage),
- 							page: page,
- 							publicatios
- 						});
-	 	});
-	});
 } 
 
 
@@ -85,11 +97,12 @@ function deletePublication(req, res) {
 	});
 }
 
+//cargar imagen de la publicación 
 function uploadImagen(req, res) {
 	//var userId = re.params.id;
 	var publicationId= req.params.id;
 
-	if(req.files){
+	if(req.files) {
 		var file_path = req.files.image.path;
 		var file_split = file_path.split('\\');
 		var file_name = file_split[2];
@@ -97,9 +110,20 @@ function uploadImagen(req, res) {
 		var split_ext = file_name.split('\.')
 		var file_ext = split_ext[1];
 
-		if(useId!= req.user.sub) {
-			return removeUploads(res, file_path, "No tiene permisos para editar al usuario.");
-		}
+
+
+
+		/*Publication.find({'user': req.user.sub, '_id':publicationId}).remove((err, publication)=>{
+			if(err) return res.status(500).send({message:"Error en devolver publicacion."});
+	 		
+ 			if(!publication) return res.status(404).send({message:"No hay publicacion"});
+		
+			if(file_path!= publication.file ) {
+				fs.unlink('./upload/user/'+image_file, (err)=>{
+					if(err) return res.status(404).send({message:"Problemas eliminado el anterior registro"});
+				});	
+			} 
+		});*/
 
 
 		if(file_ext==='png' || file_ext==='jpg' || file_ext==='jpeg' || file_ext==='gif'){
@@ -108,7 +132,7 @@ function uploadImagen(req, res) {
 
 				if(!publicationUpdate) return  res.status(500).send({message:"El registro no puede ser procesado."});
 				
-				return res.status(200).send({user:publicationUpdate});
+				return res.status(200).send({publication:publicationUpdate});
 			});
 		} else {
 			return removeUploads(res, file_path, "El tipo de archivo no es compatible."); 
@@ -120,8 +144,8 @@ function uploadImagen(req, res) {
 
 function getImagePublication(req, res) {
 	var image_file = req.params.imageFile;
-	var path_file = './upload/user/'+image_file;
-	fs.exist(path_file, (exist)=>{
+	var path_file = './uploads/user/'+image_file;
+	fs.exists(path_file, (exist)=>{
 		if(exist){
 			return res.sendFile(path.resolve(path_file));
 		} else {
