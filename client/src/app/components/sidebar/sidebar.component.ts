@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output  } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { User } from '../../models/user'
@@ -24,6 +24,7 @@ export class SidebarComponent {
 	private status: string;
 	private stats;
 	private publication;
+	
 	constructor(
 			private _route: ActivatedRoute,
 			private _router: Router,
@@ -36,12 +37,8 @@ export class SidebarComponent {
 		this.token= _userService.getToken();
 		this.url = GLOBAL.url;
 		this.stats = _userService.getStats();
-		console.info("this.stats", this.stats);
-
-
-		this.publication = new Publication("","","","" ,this.identity,);
+		this.publication = new Publication("","","","" ,this.identity);
 	}
-
 
 	ngOnInit(){
 
@@ -49,21 +46,20 @@ export class SidebarComponent {
 
 	//guardar publicación
 	onSubmit(form){
-		console.info(this.filesToUpload);
 		this._publicationService.addPublication(this.token, this.publication).subscribe(
 			response=> {
 				if(!response){
 					this.status = "error";
 				} else {
 					this.status = "success";
-					//this.publication = response.publication;
-					
+					this.publication = response.publication;
 					//subir archivos
 					let url = this.url+'upload-foto/'+this.publication._id;
-					this._uploadService.makeFileRequest(url, [], this.filesToUpload, this.token,"image")
-									.then( ( result:any ) => {
-										
-									});
+					if(this.filesToUpload != undefined){
+						this._uploadService.makeFileRequest(url, [], this.filesToUpload, this.token,"image")
+										.then( ( result:any ) => {
+										});
+					}
 					form.reset();
 				}	
 			}, error=> {
@@ -77,5 +73,10 @@ export class SidebarComponent {
 	public filesToUpload: Array<File>;
 	fileChangeEvent(file) {
 		this.filesToUpload=<Array<File>>file.target.files;
+	}
+
+	@Output() enviar = new EventEmitter();
+	enviarPublication(event) {
+		this.enviar.emit({enviar: true});
 	}
 }

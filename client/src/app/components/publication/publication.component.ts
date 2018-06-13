@@ -1,30 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
-import { User } from '../../models/user'
+import { User } from '../../models/user';
 import { Publication } from '../../models/publication';
 
 import { GLOBAL } from '../../services/global.service';
-import { UserService } from '../../services/user.service';
 import { UploadService } from '../../services/upload.service';
+import { UserService } from '../../services/user.service';
 import { PublicationService } from '../../services/publication.service';
 
 import * as $ from 'jquery';
 
 @Component({
-	selector: 'timeline',
-	templateUrl:'./timeline.component.html',
+	selector : 'publications',
+	templateUrl: './publication.component.html',
 	providers: [UserService, UploadService, PublicationService]
 })
 
-export class TimelineComponent {
-	
-	private url:string;
-	private title:string;
+export class PublicationComponent {
+	private url;
+	private title: String;
 	private user: User;
+	private status: string;
 	private identity;
 	private token;
-	private status: string;
 	private stats;
 	private publication;
 	private publications: Publication[];
@@ -38,17 +37,18 @@ export class TimelineComponent {
 	constructor(
 			private _route: ActivatedRoute,
 			private _router: Router,
-			private _userService: UserService,
+			private _userService:UserService,
 			private _publicationService: PublicationService,
 			private _uploadService : UploadService,
 		) {
-		this.title= "Timeline";
+		this.title = "";
 		this.identity= _userService.getIdentity();
 		this.token= _userService.getToken();
 		this.url = GLOBAL.url;
 		this.stats = _userService.getStats();
 	}
 
+	//inicializar mis publicaciones
 	ngOnInit() {
 		this.loadPublications(this.page);
 	}
@@ -60,6 +60,7 @@ export class TimelineComponent {
 				if(!response){
 					this.status='error';
 				} else {
+					console.info(response);
 					this.total = response.total;
 					this.pages = response.pages;
 					this.itemPerPage = response.item_per_page;
@@ -112,10 +113,5 @@ export class TimelineComponent {
 			this.noMore = true;
 		}
 		this.loadPublications(this.page, true);
- 	}
-
- 	refrescar(event){
- 		console.info(event);
- 		this.loadPublications(1);
  	}
 }

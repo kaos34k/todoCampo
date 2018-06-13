@@ -16,12 +16,12 @@ function savePublication(req, res) {
 	p.text = params.text;
 	p.file = null;
 	p.user = req.user.sub;
-	p.create_at = moment.unix();
+	p.create_at = moment();
 
 	p.save((err, pStore)=>{
-		if(err) return res.status(500).send({massge:'Error al guardar la publicación'});
+		if(err) return res.status(500).send({messge:'Error al guardar la publicación'});
 	
-		if(!pStore) return res.status(404).send({massge:'la publicación no ha sido guardada.'});		
+		if(!pStore) return res.status(404).send({messge:'la publicación no ha sido guardada.'});		
 		
 		return res.status(200).send({publication:pStore});
 	});
