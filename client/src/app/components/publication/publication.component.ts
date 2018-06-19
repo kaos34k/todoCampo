@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, HostListener} from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { User } from '../../models/user';
@@ -60,7 +60,6 @@ export class PublicationComponent {
 				if(!response){
 					this.status='error';
 				} else {
-					console.info(response);
 					this.total = response.total;
 					this.pages = response.pages;
 					this.itemPerPage = response.item_per_page;
@@ -69,8 +68,8 @@ export class PublicationComponent {
 					} else {
 						var arrayA = this.publications;
 						var arrayB = response.publications;
-						this.publications = arrayA.concat(arrayB);
-						$("html, body").animate({scrollTop:$("body").prop("scrollHeight")}, 100);
+						this.publications = (arrayA!= undefined) ? arrayA.concat(arrayB) : arrayB;
+						//$("html, body").animate({scrollTop:$("body").prop("scrollHeight")}, 100);
 					}
 
 					if(page > this.pages){
@@ -116,4 +115,10 @@ export class PublicationComponent {
 		}
 		this.loadPublications(this.page, true);
  	}
+
+
+ 	@HostListener('window:scroll', ['$event'])
+ 	onElementScroll($event) {
+ 		this.viewMore();
+	}
 }
