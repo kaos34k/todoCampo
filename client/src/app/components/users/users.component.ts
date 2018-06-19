@@ -129,7 +129,7 @@ export class UsersComponent {
 	}
 
 	//dejar de seguir ua una persona
-	unFollow(user_id){
+	unFollow(user_id) {
 		this._followService.deleteFollow(this.token, user_id).subscribe(
 				response=>{
 					console.info("respuesta", response);

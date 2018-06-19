@@ -28,7 +28,7 @@ const appRoutes: Routes =[
 		{path:'users', component: UsersComponent},
 		{path:'timeline', component: TimelineComponent},
 		{path:'publications', component: PublicationComponent},
-		{path:'profile', component: ProfileComponent},
+		{path:'perfil/:id', component: ProfileComponent},
 		{path:'**', component: HomeComponent},
 	];
 export const appRoutingProviders: any[] = [];

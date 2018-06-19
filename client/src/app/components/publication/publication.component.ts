@@ -79,7 +79,8 @@ export class PublicationComponent {
 					this.status = "success";
 				}	
 			}, error=> {
-
+				var errorMessage = <any> error;
+				console.error(errorMessage);
 			}
 		)
 	}
@@ -94,7 +95,8 @@ export class PublicationComponent {
 					this.status = "success";
 				}	
 			}, error=> {
-
+				var errorMessage = <any> error;
+				console.error(errorMessage);
 			}
 		)
 	}

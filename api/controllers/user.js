@@ -134,8 +134,6 @@ function login(req, res) {
 	}, (err, user)=> {
 		if(err) return res.status(500).send({message:"Error en la petición."});
 		
-
-
 		if(user){
 			bcrypt.compare(password, user.password, (err, check)=>{
 				if (check) {
@@ -164,14 +162,20 @@ function login(req, res) {
 
 function getUser(req, res) {
 	var useId = req.params.id;
-	User.findOne(useId, (err, user)=>{
+
+	User.findOne({'_id':useId}, (err, user)=>{
 		if (err) return res.status(500).send({message:"Error en la petición."});
 
 		if (!user) return res.status(404).send({message:"El usuario no existe."}); 
  		
- 		followThisUser(req.user.sub, useId).then((val)=>{
+ 		var result = followThisUser(req.user.sub, useId);
+
+ 		result.then((val) => {
  			user.password = undefined;
- 			return status(200).send({
+ 		
+ 			console.info("resss", val);
+
+ 			return res.status(200).send({
  				user, 
  				following: val.following, 
  				followed: val.followed
@@ -244,7 +248,7 @@ async function followUserId(user_id){
 	            	console.info(err);
 	                return err;
 	            });
-        //usuarios queme siguen
+        //usuarios que me siguen
 		var followed = await Follow.find({"follow": user_id}).select({'_id':0, '__v':0,'follow':0}).exec()            
 				.then((followed) => {
 					var followed_clean = [];

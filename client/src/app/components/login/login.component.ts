@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit{
 					this.status= "error";	
 				}
 			}, err =>{
-				console.error("No se puede generar el login del usuario.");
+				var errorMessage = <any> err;
+				console.error(errorMessage);
 			}
 		);
 	}
@@ -62,7 +63,8 @@ export class LoginComponent implements OnInit{
 					this.status= "success";
 				}
 			}, err =>{
-				console.error("No se puede cargar el token");
+				var errorMessage = <any> err;
+				console.error(errorMessage);
 			}
 		);
 	}
@@ -72,9 +74,9 @@ export class LoginComponent implements OnInit{
 			response=>{
 				localStorage.setItem('stats', JSON.stringify(response));
 				this._router.navigate(['/']);
-			},
-			error=>{
-				console.info("Error", "No se puede cargar información");
+			}, error=>{
+				var errorMessage = <any> error;
+				console.error(errorMessage);
 			}
 		)
 	}

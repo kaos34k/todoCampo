@@ -23,7 +23,6 @@ export class RegisterComponent implements OnInit{
 	}
 
 	ngOnInit() {
-		console.log("Hola mundo.");
 	}
 
 	ngOnSubmit(){
@@ -37,7 +36,8 @@ export class RegisterComponent implements OnInit{
 						}
 					
 				}, err =>{
-
+					var errorMessage = <any> err;
+					console.error(errorMessage);
 				}
 			);
 	}
