@@ -273,7 +273,7 @@ async function followUserId(user_id){
 
 async function followThisUser(identity_user_id, user_id){
 	try{
-		var following = await Follow.findOne({"user": identity_user_id, "follow": user_id}).exec()
+		var following = await Follow.find({'user': identity_user_id, 'follow': user_id}).exec()
 			.then((following) => {
 				return following;
 	        })
@@ -282,12 +282,13 @@ async function followThisUser(identity_user_id, user_id){
 	            return err;
 	        });
 
-		var followed = await Follow.findOne({"user":user_id, "follow":identity_user_id }).exec()
-			.then((followed) => {
-				return followed;
+
+		var followed = await Follow.find({'follow':identity_user_id, 'user': user_id}).exec()
+			.then((foll) => {
+				return foll;
 	        })
 	        .catch((err)=>{
-	        	console.info(err);
+	        	console.info("ERROR",err);
 	            return err;
 	        });
 

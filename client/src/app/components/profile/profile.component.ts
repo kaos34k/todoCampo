@@ -22,6 +22,7 @@ export class ProfileComponent {
 	private token;
 	private status: string;
 	private siguiendo;
+	private seguidor;
 
 
 	constructor(
@@ -66,18 +67,16 @@ export class ProfileComponent {
 						} else {
 							this.user = response.user;
 							this.status = "success";
-							
-							console.info("HOLAA", response);
-
 							if(response.followed != null){
-								
+								this.seguidor = true;
 								this.siguiendo = true;
 							} else {
 								this.siguiendo = false;
+								this.seguidor = false;
 							}
 						}
 					}
-				}, error=>{
+				}, error => {
 					console.error(error);
 					this.user = this.identity;
 					this._router.navigate(['/perfil', this.identity._id]);
@@ -101,11 +100,21 @@ export class ProfileComponent {
 	//dejar de seguir a un usuario
 	unFollow(followed){
 		this._followService.deleteFollow(this.token, followed).subscribe(
-			response =>{
+			response => {
 				this.siguiendo = false;
 			}, err =>{
 				console.error(err);
 			}
 		)
+	}
+
+	//efectos para botones de seguir y dejar de seguir un usuario
+	public folowUserOver;
+	mouseEnter(user_id){
+		this.folowUserOver = user_id;
+	}
+
+	mouseLeaveEnter(id){
+		this.folowUserOver = 0;
 	}
 }

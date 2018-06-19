@@ -166,3 +166,13 @@ textarea {
 	font-size: 19px;
 	color: gray;
 }
+
+/* SIDEBAR */
+.stats{
+	display: flex;
+}
+
+.stats .following-data{
+	text-align:  center;
+	padding: 10px;
+}
