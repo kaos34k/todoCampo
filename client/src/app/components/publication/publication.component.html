@@ -39,7 +39,7 @@
 		</div>
 	</div>
 	<p>
-	<button class="btn btn-success" *nfIf="publications && publications.length" (click)="viewMore()" *ngIf="!noMore">
+	<button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore && publications && publications.length">
 		Ver más publicaciones
 	</button>
 
