@@ -69,7 +69,7 @@ export class TimelineComponent {
 						var arrayA = this.publications;
 						var arrayB = response.publications;
 						this.publications = arrayA.concat(arrayB);
-						$("html, body").animate({scrollTop:$("body").prop("scrollHeight")}, 100);
+						//$("html, body").animate({scrollTop:$("body").prop("scrollHeight")}, 100);
 					}
 
 					if(page > this.pages){
@@ -115,7 +115,6 @@ export class TimelineComponent {
  	}
 
  	refrescar(event){
- 		console.info(event);
  		this.loadPublications(1);
  	}
 }

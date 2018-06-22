@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
+
 import { User } from '../../models/user';
+import { Publication } from '../../models/publication';
 import { Follow } from '../../models/follow';
+
 import { GLOBAL } from '../../services/global.service';
 import { UserService } from '../../services/user.service';
 import { UploadService } from '../../services/upload.service';
@@ -10,7 +13,7 @@ import { FollowService } from '../../services/follow.service';
 @Component({
 	selector: 'profile',
 	templateUrl: './profile.component.html',
-	providers: [UserService, FollowService,  UploadService]
+	providers: [UserService, FollowService, UploadService]
 })
 
 export class ProfileComponent {
@@ -23,14 +26,21 @@ export class ProfileComponent {
 	private status: string;
 	private siguiendo;
 	private seguidor;
+	private publication;
+	private publications: Publication[];
 
+	//controles de paginación para publicaciones
+	private total;
+	private page = 1;
+	private pages;
+	private itemPerPage;
 
 	constructor(
 			private _route: ActivatedRoute,
 			private _router: Router,
 			private _userService: UserService,
 			private _uploadService: UploadService,
-			private _followService: FollowService
+			private _followService: FollowService,
 		) {
 		
 		this.url = GLOBAL.url;
@@ -65,8 +75,10 @@ export class ProfileComponent {
 						if(!response.user) {
 							this.status = "error";
 						} else {
+
 							this.user = response.user;
 							this.status = "success";
+							
 							if(response.followed != null){
 								this.seguidor = true;
 								this.siguiendo = true;

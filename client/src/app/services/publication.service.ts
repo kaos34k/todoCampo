@@ -6,11 +6,12 @@ import { Follow } from '../models/follow';
 import { Publication } from '../models/publication';
 
 
-
 @Injectable()
 export class PublicationService{
-
+	//url de mi api
 	public url: string;
+	
+	//header que voy a usar en mis peticiones ajax
 	public headers;
 	
 	constructor(private _http:HttpClient){
@@ -24,6 +25,12 @@ export class PublicationService{
 		return this._http.get(this.url+"load-publication/"+ page , {headers:header});
 	}
 
+	//cargar solo las publicaciones para un usuario
+	loadPublicationThisUser(token, user, page): Observable<any>{
+		let header = this.headers.set('Authorization', token);
+		return this._http.get(this.url+'load-publication-this-user/'+user+'/'+page, {headers:header});
+	}
+	
 	//guardar nueva publicación
 	addPublication(token, publication): Observable<any>{
 		let params = JSON.stringify(publication);
@@ -40,4 +47,6 @@ export class PublicationService{
 	editarPublication(){
 
 	}
+
+
 }

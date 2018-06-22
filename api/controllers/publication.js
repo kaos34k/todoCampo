@@ -27,6 +27,7 @@ function savePublication(req, res) {
 	});
 }
 
+//cargar publicaciones de mias y de mis seguidos
 function loadPublications(req, res) {
 	try{
 		var page = 1;
@@ -67,6 +68,43 @@ function loadPublications(req, res) {
 	            	console.info(err);
 	            	return res.status(500).send({message:"Error en devolver seguimiento."});
 	            });
+	} catch(error){
+		console.info("Error", error);
+	}
+} 
+
+
+function loadPublicationsThisUser(req, res) {
+	try{
+		var page = 1;
+		if(req.params.page ){
+			page = req.params.page;
+		}
+
+		if(!req.params.id){
+			if(!publications) return res.status(404).send({message:"No hay un usaurio seleccionado"});
+		}
+
+	 	var itemPerPage = 4;
+
+		Publication.find({user: req.params.id })
+		 	.sort('create_at')
+		 	.populate('user')
+		 	.paginate(page, itemPerPage, (err, publications, total)=>{
+ 			if(err) return res.status(500).send({message:"Error en devolver publicaciones."});
+	 		
+	 		if(!publications) return res.status(404).send({message:"No hay publicaciones"});
+ 			
+ 			return res.status(200)
+ 						.send({
+ 							total: total,
+ 							pages: Math.ceil(total/itemPerPage),
+ 							page: page,
+ 							item_per_page: itemPerPage,
+ 							publications
+ 						});
+	 	});
+
 	} catch(error){
 		console.info("Error", error);
 	}
@@ -164,6 +202,7 @@ function removeUploads(res, file_path, msg){
 module.exports = {
 	savePublication,
 	loadPublications,
+	loadPublicationsThisUser,
 	getPublication,
 	deletePublication,
 	uploadImagen,

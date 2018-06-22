@@ -12,6 +12,7 @@ api.post("/save-publication", md_auth.ensureAuth, publicationController.savePubl
 api.post("/upload-foto/:id", [md_auth.ensureAuth, md_upload], publicationController.uploadImagen);
 
 api.get("/load-publication/:page?", md_auth.ensureAuth, publicationController.loadPublications);
+api.get("/load-publication-this-user/:id/:page?", md_auth.ensureAuth, publicationController.loadPublicationsThisUser);
 api.get("/publication/:id", md_auth.ensureAuth, publicationController.getPublication);
 api.get("/get-imagen-publication/:imageFile", publicationController.getImagePublication);
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener} from '@angular/core';
+import { Component, OnInit, HostListener, Input} from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { User } from '../../models/user';
@@ -20,7 +20,6 @@ import * as $ from 'jquery';
 export class PublicationComponent {
 	private url;
 	private title: String;
-	private user: User;
 	private status: string;
 	private identity;
 	private token;
@@ -28,6 +27,7 @@ export class PublicationComponent {
 	private publication;
 	private loader;
 	private publications: Publication[];
+	@Input() user;
 
 	//controles de paginación
 	private total;
@@ -52,7 +52,12 @@ export class PublicationComponent {
 
 	//inicializar mis publicaciones
 	ngOnInit() {
-		this.loadPublications(this.page);
+		if(this.user){
+			this.loadPublicationsThisUser(this.page);
+		} else {
+			this.loadPublications(this.page);	
+		}
+		
 	}
 
 	//listar publicaciones
@@ -88,6 +93,41 @@ export class PublicationComponent {
 		)
 	}
 
+	//listar publicaciones de un usuario
+	loadPublicationsThisUser(page, adding=false) {
+		this.loader = true; 
+		this._publicationService.loadPublicationThisUser(this.token,  this.user, this.page).subscribe(
+			response=>{
+				if(!response){
+					this.status='error';
+				} else {
+					this.total = response.total;
+					this.pages = response.pages;
+					this.itemPerPage = response.item_per_page;
+					if(!adding){
+						this.publications = response.publications;
+					} else {
+						var arrayA = this.publications;
+						var arrayB = response.publications;
+						this.publications = arrayA.concat(arrayB);
+						//$("html, body").animate({scrollTop:$("body").prop("scrollHeight")}, 100);
+					}
+
+					if(page > this.pages){
+						//this._router.navigate(['/timeline'])
+					}
+					this.status = "success";
+				}
+				this.loader = false;
+			}, error=>{
+				this.loader = false;
+				var errorMessage = <any> error;
+				console.error(errorMessage);
+			}
+		)	
+	}
+
+
 	//eliminar publicaciones
 	deletePublicaion() {
 		this._publicationService.deletePublication(this.token, this.publication).subscribe(
@@ -118,7 +158,11 @@ export class PublicationComponent {
 			this.noMore = true;
 		}
 
-		this.loadPublications(this.page, true);
+		if(this.user){
+			this.loadPublicationsThisUser(this.page);
+		} else {
+			this.loadPublications(this.page);	
+		}
  	}
 
 

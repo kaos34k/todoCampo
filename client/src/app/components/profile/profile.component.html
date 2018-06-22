@@ -82,7 +82,11 @@
 				</a>
 			</div>
 		</div>
-		
+	</div>
+	
+	<div class="clearfix"></div>
+	<div *ngIf="user">
+		<publications [user]="user._id"></publications>
 	</div>
 </div>
 <!-- panel de publicaciones-->
