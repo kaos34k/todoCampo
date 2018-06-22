@@ -28,13 +28,27 @@
 
 <!--paginacion-->
 <div class="col-lg-12 text-center">
+	<div id="cssload-pgloading" *ngIf="loader">
+		<div class="cssload-loadingwrap">
+			<ul class="cssload-bokeh">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
 	<p>
 		<button class="btn btn-success" (click)="viewMore()" *ngIf="!noMore">
 			Ver más publicaciones
 		</button>
 
+
+
 		<span class="" *ngIf="noMore">
 			No hay mas publicaciones realizadas
 		</span>
+
+
 	</p>
 </div>

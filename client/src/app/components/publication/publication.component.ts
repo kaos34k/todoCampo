@@ -26,6 +26,7 @@ export class PublicationComponent {
 	private token;
 	private stats;
 	private publication;
+	private loader;
 	private publications: Publication[];
 
 	//controles de paginación
@@ -46,6 +47,7 @@ export class PublicationComponent {
 		this.token= _userService.getToken();
 		this.url = GLOBAL.url;
 		this.stats = _userService.getStats();
+		this.loader = false;
 	}
 
 	//inicializar mis publicaciones
@@ -54,7 +56,8 @@ export class PublicationComponent {
 	}
 
 	//listar publicaciones
-	loadPublications(page, adding=false){
+	loadPublications(page, adding=false) {
+		this.loader = true;
 		this._publicationService.loadPublications(this.token,page).subscribe(
 			response=> {
 				if(!response){
@@ -69,15 +72,16 @@ export class PublicationComponent {
 						var arrayA = this.publications;
 						var arrayB = response.publications;
 						this.publications = (arrayA!= undefined) ? arrayA.concat(arrayB) : arrayB;
-						//$("html, body").animate({scrollTop:$("body").prop("scrollHeight")}, 100);
 					}
 
 					if(page > this.pages){
 						//this._router.navigate(['/timeline'])
 					}
 					this.status = "success";
-				}	
+				}
+				this.loader = false;	
 			}, error=> {
+				this.loader = false;
 				var errorMessage = <any> error;
 				console.error(errorMessage);
 			}
@@ -113,12 +117,15 @@ export class PublicationComponent {
 		if(this.page >= this.pages){
 			this.noMore = true;
 		}
+
 		this.loadPublications(this.page, true);
  	}
 
 
  	@HostListener('window:scroll', ['$event'])
  	onElementScroll($event) {
- 		this.viewMore();
+ 		if(!this.noMore){
+ 			this.viewMore();
+ 		}
 	}
 }
