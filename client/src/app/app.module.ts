@@ -22,6 +22,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { PublicationComponent } from './components/publication/publication.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MessageComponent } from './components/messages/message.component';
 
 //cofiguración de mi app
 @NgModule({
@@ -36,14 +37,15 @@ import { ProfileComponent } from './components/profile/profile.component';
     SidebarComponent,
     TimelineComponent,
     PublicationComponent,
-    ProfileComponent
+    ProfileComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
     HttpClientModule,
-    MomentModule
+    MomentModule,
   ],
   providers: [
     appRoutingProviders

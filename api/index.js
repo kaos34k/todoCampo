@@ -6,6 +6,58 @@
 var mongoose= require('mongoose');
 var app = require('./app.js');
 var port = 3899;
+var server = require('http').Server(app);  
+var io = require('socket.io')(server);
+
+//servicios chat
+var messageController = require('./controllers/message');
+
+
+io.on('connection',  (socket) => {
+	//console.info("estoy conectado a un socket", socket);
+	socket.on('message', function(data) {
+		console.info("hola", data);
+    	io.emit('message', data);
+  	});
+
+	//nuevo mensage
+    socket.on('save-message', (message) => {
+    	console.info(message);
+      	//messageController.saveMessage();
+    });
+
+
+	socket.on('chatmessage', function(msg){
+		console.log('message: ' + msg);
+	});
+
+
+    //recibir mensajes
+    socket.on('recivido-message', (message) => {
+      	//messageController.getReceiveMessages();
+    })
+
+    //emitir mensajes
+    socket.on('emmiter-message', (message) => {
+      	//messageController.getEmmiterMessages();
+    })
+
+    //ver mensajes
+    socket.on('view-message', (message) => {
+      	//messageController.getUnviewMessages();
+    })
+
+    //mensajes vistos
+    socket.on('save-message', (message) => {
+      	messageController.setViewMessages();
+    	socket.emit('message', { msg: 'Welcome bro!' });
+    })
+
+    //esperimentos
+    /*socket.on('msg',(msg) => {
+    	socket.emit('msg', { msg: "you sent : "+msg });
+    })*/
+});
 
 mongoose.Promise = global.Promise;
 //mongoose.connect('mongodb://127.0.0.1:27017/demo-mongo')
@@ -19,8 +71,8 @@ var url = 'mongodb://miapp:KMbz413F6CFDWc73@'+//usuario y contraseña
 			'ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';//parametros adicionales
 
 mongoose.connect(url)
-.then((client)=>{
-	app.listen(port, ()=>{
+.then((client)=> {
+	server.listen(port, ()=>{
 		console.info("Ya se encuentra conetada mi aplicación");
 	});
 }).catch( err => console.info(err));

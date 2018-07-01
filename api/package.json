@@ -17,6 +17,7 @@
     "moment": "^2.20.1",
     "mongoose": "^5.0.7",
     "mongoose-pagination": "^1.0.0",
-    "nodemon": "^1.17.1"
+    "nodemon": "^1.17.1",
+    "socket.io": "^2.1.1"
   }
 }
