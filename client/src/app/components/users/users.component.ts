@@ -39,7 +39,7 @@ export class UsersComponent {
 			private _userService: UserService,
 			private _followService: FollowService
 		) {
-		this.title= "Usuarios";
+		this.title= "Mensajes";
 		this.identity= _userService.getIdentity();
 		this.token= _userService.getToken();
 	}
@@ -107,7 +107,7 @@ export class UsersComponent {
 	mouseLeaveEnter(id){
 		this.folowUserOver = 0;
 	}
-
+	//guardar seguidor
 	saveFollow(followed){
 		var follow = new Follow('', this.identity._id, followed);
 		this._followService.addFollow(this.token, follow).subscribe(

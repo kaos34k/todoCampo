@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit{
 		);
 	}
 
+	//
 	getCounters(){
 		this._userServices.getCounters().subscribe(
 			response=>{

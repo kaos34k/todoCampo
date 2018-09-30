@@ -1,22 +1,43 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button (click)="sendButtonClick()" >Enviar men</button>
-    </form>
-  </body>
-</html>
+<!-- Formulario de mensajes -->    
+<div class="col-lg-4 pull-right">
+    <ul id="messages">
+        <li  *ngFor="let mensaje of mensajes" class="item-mensages">
+            {{mensaje.text}}
+        </li>
+    </ul>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mensaje</label>
+            <textarea rows="1" cols="50" type="text-area" class="form-control" #box (keyup.enter)="onEnter(box.value)" placeholder="Escribe algo aquí"></textarea>
+            
+        </div>
+</div>
+
+<div class="col-lg-3 pull-right">
+    <h1 class="h1-strong">{{title}}</h1>
+    <div class="people">
+        <div *ngFor="let user of users" class="item-user">
+            <div class="panel panel-default btn-default" (click)="seleccionarUsaurio(user._id)">
+                <div class="panel-body">
+                    <div class="image-user pull-left">
+                        <a href="#">
+                            <img src="{{url + 'get-imagen-user/'+ user.image}}" *ngIf="user.image">
+                            <img src="/assets/user.png" class="avatar-default" *ngIf="!user.image">
+                        </a>
+                    </div>
+
+                    <div class="user-name pull-left">
+                        <p class="name-surname">
+                            <a [routerLink]="['/perfil', user._id]" [routerLinkActive]="['activate']">
+                                {{user.name +' '+ user.surname}}    
+                            </a>
+                        </p>
+                        <p class="nickname">{{user.nick}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>    
+
+
+

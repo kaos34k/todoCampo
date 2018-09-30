@@ -6,7 +6,6 @@ export class Message{
 			public view:string,
 			public emitter: string,
 			public receiver: string,
-
 		){
 		
 	}
