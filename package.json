@@ -1,27 +1,17 @@
 
 {
-  "name": "red-social",
+  "name": "my_package",
+  "description": "",
   "version": "1.0.0",
-  "description": "desarrollo de una red social",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "node": "node",
-    "start": "node client/server.js",
-    "start": "node api/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.18.2",
-    "connect-multiparty": "^2.1.0",
-    "express": "^4.16.2",
-    "jwt-simple": "^0.5.1",
-    "moment": "^2.20.1",
-    "mongoose": "^5.0.7",
-    "mongoose-pagination": "^1.0.0",
-    "nodemon": "^1.17.1",
-    "socket.io": "^2.1.1"
-  }
+  "bugs": {
+    "url": "https://github.com/ashleygwilliams/my_package/issues"
+  },
+  "homepage": "https://github.com/ashleygwilliams/my_package"
 }
