@@ -4,7 +4,6 @@
 	#24673c
 
 **/
-
 textarea {
   resize: none;
 }
@@ -50,7 +49,7 @@ textarea {
 }
 
 .item-user .image-user img{
-	width: 137px;
+	width: 100%;
 }
 
 .item-user .image-name{
@@ -89,7 +88,7 @@ textarea {
 }
 
 #user-card .avatar img{
-	width: 137px;
+	width: 100%;
 }
 
 #user-card .name-surname a{
@@ -145,40 +144,6 @@ textarea {
 }
 
 
-/* PERFILES */
-
-#data-profile {
-	min-height:  250px;
-	text-align: left;
-}
-
-#data-profile .avatar {
-	width: 185px;
-	height: 185px;
-	border-radius: 400px;
-	overflow: hidden;
-	margin-right: 15px;
-}
-
-#data-profile .avatar img{
-	width: 100%;
-}
-
-#data-profile .user-name {
-	margin-top: 40px;
-}
-
-#data-profile .user-name .name {
-	font-size: 19px;
-	font-weight: bold;
-	color: #555;
-}
-
-#data-profile .user-name .nick {
-	font-size: 19px;
-	color: gray;
-}
-
 /* SIDEBAR */
 .stats{
 	display: flex;
@@ -188,7 +153,6 @@ textarea {
 	text-align:  center;
 	padding: 10px;
 }
-
 
 /* PRELOAD */
 

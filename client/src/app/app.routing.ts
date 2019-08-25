@@ -17,6 +17,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { PublicationComponent } from './components/publication/publication.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MessageComponent } from './components/messages/message.component';
+import { FincaComponent } from './components/finca/finca.component';
 
 //este es el arreglo encargado de definir las rutas para cada vista
 const appRoutes: Routes =[
@@ -31,6 +32,7 @@ const appRoutes: Routes =[
 		{path:'publications', component: PublicationComponent},
 		{path:'perfil/:id', component: ProfileComponent},
 		{path:'message', component: MessageComponent},
+		{path:'finca', component: FincaComponent},
 		{path:'**', component: HomeComponent},
 	];
 export const appRoutingProviders: any[] = [];

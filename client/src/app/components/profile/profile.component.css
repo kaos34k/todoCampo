@@ -1,0 +1,34 @@
+
+/* PERFILES */
+
+#data-profile {
+	min-height:  150px;
+	text-align: left;
+}
+
+#data-profile .avatar {
+	width: 110px;
+	height: 110px;
+	border-radius: 400px;
+	overflow: hidden;
+	margin-right: 15px;
+}
+
+#data-profile .avatar img{
+	width: 100%;
+}
+
+#data-profile .user-name {
+	margin-top: 0%;
+}
+
+#data-profile .user-name .name {
+	font-size: 19px;
+	font-weight: bold;
+	color: #555;
+}
+
+#data-profile .user-name .nick {
+	font-size: 19px;
+	color: gray;
+}

@@ -23,6 +23,9 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { PublicationComponent } from './components/publication/publication.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MessageComponent } from './components/messages/message.component';
+import { FincaComponent } from './components/finca/finca.component';
+
+
 
 //cofiguración de mi app
 @NgModule({
@@ -38,7 +41,8 @@ import { MessageComponent } from './components/messages/message.component';
     TimelineComponent,
     PublicationComponent,
     ProfileComponent,
-    MessageComponent
+    MessageComponent,
+    FincaComponent
   ],
   imports: [
     BrowserModule,

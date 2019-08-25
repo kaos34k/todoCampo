@@ -1,4 +1,4 @@
-<div class="navigation col-lg-12">
+<div class="navigation col-lg-12" style="padding-bottom: 80px; z-index: 10;">
    <nav class="navbar navbar-fluid">
       <div class="container-fluid">
          <div class="navbar-header">
@@ -29,20 +29,20 @@
             <li>
                <a [routerLink]="['/login']" [routerLinkActive]="['activate']">
                   <span class="glyphicon glyphicon-log-in"></span>
-                  Login
+                  Inicio de sesiòn
                </a>
             </li>
             <li>
                <a [routerLink]="['/register']" [routerLinkActive]="['activate']">
                   <span class="glyphicon glyphicon-user"></span>
-                  Registrate
+                  Registro
                </a>
             </li>
          </ul>
 
          <ul class="nav navbar-nav navbar-right" *ngIf="identity">
             <li>
-               <a href="">Admin</a>
+               <a href="">Administrador</a>
             </li>
             <li class="dropdown">
               
@@ -72,6 +72,13 @@
                         Dahsboard
                      </a>
                   </li>
+
+                  <li>
+                      <a [routerLink]="['/user-edit']" [routerLinkActive]="['activate']">
+                        <span class="glyphicon glyphicon-cog"></span> 
+                        Finca
+                     </a>
+                  </li>
                   
                   <li>
                      <a class="" (click)="logout()">
@@ -86,5 +93,6 @@
       </div>
    </nav>
 </div>
-
-<router-outlet></router-outlet>
+<div class="wrapperm">
+   <router-outlet ></router-outlet>   
+</div>

@@ -29,4 +29,6 @@ mongoose.connect(url)
 	server.listen(port, ()=>{
 		console.info("Ya se encuentra conetada mi aplicación");
 	});
-}).catch( err => console.info(err));
+}).catch( 
+	err => console.info(err)
+);

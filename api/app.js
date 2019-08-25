@@ -9,6 +9,7 @@ var user_routes = require('./routes/user');
 var follow_routes = require('./routes/follow');
 var pulication_routes = require('./routes/publication');
 var messges_routes = require('./routes/message');
+var finca_routes = require('./routes/controlFinca');
 
 //cargar middelwares
 app.use(bodyParser.urlencoded({
@@ -33,6 +34,8 @@ app.use('/api', user_routes);
 app.use('/api', follow_routes);
 app.use('/api', pulication_routes);
 app.use('/api', messges_routes);
+app.use('/api', finca_routes);
+
 
 
 

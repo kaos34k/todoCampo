@@ -1,0 +1,12 @@
+.navigation {
+	position: fixed;
+	margin-bottom: 30px;	
+}
+
+.wrapperm { 
+    padding-top: 80px;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+

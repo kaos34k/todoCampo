@@ -43,7 +43,8 @@ function getReceiveMessages(req, res) {
 	}
 
 	var itemPerPage = 4;
-	Message.find({receiver:userId}).populate('emmiter', 'name surname _id image').paginate(page, itemPerPage, (err, messages, page)=>{
+	Message.find({receiver:userId}).populate('emmiter', 'name surname _id image')
+		.paginate(page, itemPerPage, (err, messages, page)=>{
 		if(err) return res.status(404).send({message: 'Error en la petición'}); 
 		
 		if(!messages) res.status(500).send({message: 'Error al enviar el mensaje'});
